@@ -24,14 +24,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     methods.insert(String::from("day1"), execute);
 
-    let method = methods.get(day);
+    let method = match methods.get(day) {
+        Some(function) => function,
+        _ => return Err(format!("{} has not been implemented", day).into()),
+    };
 
-    if let Some(m) = method {
-        match m() {
-            Ok(_) => (),
-            Err(e) => return Err(e),
-        };
-    }
+    method()?;
 
     Ok(())
 }
