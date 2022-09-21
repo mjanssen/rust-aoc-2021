@@ -18,19 +18,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Err("Supplied day was not correct, use 'day1' for example".into());
     }
 
-    println!("Results for {}", day);
-
     let mut methods: HashMap<String, fn() -> Result<(), Box<dyn std::error::Error>>> =
         HashMap::new();
 
     methods.insert(String::from("day1"), days::day_1::execute);
     methods.insert(String::from("day2"), days::day_2::execute);
     methods.insert(String::from("day3"), days::day_3::execute);
+    methods.insert(String::from("day4"), days::day_4::execute);
 
     let method = match methods.get(day) {
         Some(function) => function,
         _ => return Err(format!("{} has not been implemented", day).into()),
     };
+
+    println!("Results for {}", day);
 
     method()?;
 
